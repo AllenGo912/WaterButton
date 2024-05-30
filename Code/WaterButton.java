@@ -9,102 +9,102 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class MyLayout extends Frame implements ActionListener{
-	
-	//°´Å¥Êı×é´óĞ¡
+
+	//æŒ‰é’®æ•°ç»„å¤§å°
 	private int ROWS = 10;
 	private int COLS = 10;
-	
+
 	class MyButton extends Button{
-		public int x,y;//°´Å¥ÔÚÊı×éÖĞµÄÏÂ±ê
-		public int deep;//°´Å¥µÄ²ã´Î
+		public int x,y;//æŒ‰é’®åœ¨æ•°ç»„ä¸­çš„ä¸‹æ ‡
+		public int deep;//æŒ‰é’®çš„å±‚æ¬¡
 	}
-	
+
 	private MyButton btn[][] = new MyButton[ROWS][COLS];
 	private int vis[][] = new int[ROWS][COLS];
-	private Color a = new Color(252,157,154);//Ô­Ê¼ÑÕÉ«
-	private Color b = new Color(254,67,101);//µã»÷ÑÕÉ«
+	private Color a = new Color(252,157,154);//åŸå§‹é¢œè‰²
+	private Color b = new Color(254,67,101);//ç‚¹å‡»é¢œè‰²
 	private int dir[][] = new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
 	public MyLayout() {
-		//³£¹æÉèÖÃ
-		this.setTitle("²¨ÎÆ°´Å¥Ğ§¹ûÊ¾Òâ");
+		//å¸¸è§„è®¾ç½®
+		this.setTitle("æ³¢çº¹æŒ‰é’®æ•ˆæœç¤ºæ„");
 		this.setSize(500, 500);
-		this.setLayout(new GridLayout(ROWS,COLS));//Íø¸ñ×´²¼¾Ö
-		this.setResizable(false);//²»¿É¸Ä±ä´óĞ¡
-		//ÉèÖÃ´°¿ÚÔÚÆÁÄ»ÖĞÑë
+		this.setLayout(new GridLayout(ROWS,COLS));//ç½‘æ ¼çŠ¶å¸ƒå±€
+		this.setResizable(false);//ä¸å¯æ”¹å˜å¤§å°
+		//è®¾ç½®çª—å£åœ¨å±å¹•ä¸­å¤®
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) screensize.getWidth() / 2 - this.getWidth() / 2;
-		int y = (int) screensize.getHeight() / 2 - this.getHeight() / 2;	
+		int y = (int) screensize.getHeight() / 2 - this.getHeight() / 2;
 		this.setLocation(x, y);
-		//ÉèÖÃ´°¿Ú¿É¼û
+		//è®¾ç½®çª—å£å¯è§
 		this.setVisible(true);
-		//Ê¹¹Ø±Õ´°¿ÚÓĞĞ§
+		//ä½¿å…³é—­çª—å£æœ‰æ•ˆ
 		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
 				MyLayout.this.dispose();
 			}
 		});
-		
+
 		for(int i=0;i<ROWS;i++) {
 			for(int j=0;j<COLS;j++) {
 				btn[i][j] = new MyButton();
 				btn[i][j].setBackground(a);
 				btn[i][j].x = i;
 				btn[i][j].y = j;
-				btn[i][j].addActionListener(this);//×¢²á¼àÌı
+				btn[i][j].addActionListener(this);//æ³¨å†Œç›‘å¬
 				this.add(btn[i][j]);
 			}
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//»ñÈ¡°´Å¥Êı×éÖĞµã»÷°´Å¥ÏÂ±ê
-		//Í¨¹ı×ø±êºÍ³¤¿í¼ÆËã
+		//è·å–æŒ‰é’®æ•°ç»„ä¸­ç‚¹å‡»æŒ‰é’®ä¸‹æ ‡
+		//é€šè¿‡åæ ‡å’Œé•¿å®½è®¡ç®—
 		MyButton bt = (MyButton)e.getSource();
 		int idx = bt.getY()/bt.getHeight();
 		int idy = bt.getX()/bt.getWidth();
 		goButton(idx, idy);
 		init();
 	}
-	
+
 	public void init(){
 		for(int i=0;i<ROWS;i++){
 			for(int j=0;j<COLS;j++){
-				vis[i][j] = 0; //Î´·ÃÎÊ¹ı
+				vis[i][j] = 0; //æœªè®¿é—®è¿‡
 			}
 		}
 	}
 	public void changeColor(int x,int y,Color preColor,Color nextColor,int time) {
 		//btn[x][y].setBackground(preColor);
-		//ÑÓÊ±
+		//å»¶æ—¶
 		new Thread() {
-            public void run() {
-            	btn[x][y].setBackground(preColor);
-            	try {
-//            		System.out.println("ÑÓÊ±!+"+time+"end");
-            		Thread.sleep(time);
-                 } catch (InterruptedException e) {
-                	 e.printStackTrace();
-                 }
-            	btn[x][y].setBackground(nextColor);
-            	try {
-//            		System.out.println("ÑÓÊ±!+"+time+"end");
-                    Thread.sleep(time);
-                 } catch (InterruptedException e) {
-                     e.printStackTrace();
-                 }
-            	btn[x][y].setBackground(preColor);
-            }
-        }.start();
+			public void run() {
+				btn[x][y].setBackground(preColor);
+				try {
+//            		System.out.println("å»¶æ—¶!+"+time+"end");
+					Thread.sleep(time);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				btn[x][y].setBackground(nextColor);
+				try {
+//            		System.out.println("å»¶æ—¶!+"+time+"end");
+					Thread.sleep(time);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				btn[x][y].setBackground(preColor);
+			}
+		}.start();
 	}
-	
+
 	public void goButton(int idx,int idy) {
 		//BFS
 		Queue<MyButton> q = new LinkedList<MyButton>();
-		btn[idx][idy].deep = 0;//ÆğÊ¼µãµÚ0²ã
+		btn[idx][idy].deep = 0;//èµ·å§‹ç‚¹ç¬¬0å±‚
 		q.offer(btn[idx][idy]);
 		vis[idx][idy] = 1;
-//		System.out.println(idx+","+idy+"±»µ÷ÓÃ~");
+//		System.out.println(idx+","+idy+"è¢«è°ƒç”¨~");
 		while(!q.isEmpty()) {
 			MyButton head = q.poll();
 			for(int i=0;i<4;i++) {
@@ -114,28 +114,28 @@ class MyLayout extends Frame implements ActionListener{
 					btn[tx][ty].deep = head.deep + 1;
 					changeColor(tx,ty,a, b, btn[tx][ty].deep*50);
 					q.offer(btn[tx][ty]);
-//					System.out.println("¸Ä±äÑÕÉ«"+tx+','+ty+",   deep:"+(head.deep+1));
+//					System.out.println("æ”¹å˜é¢œè‰²"+tx+','+ty+",   deep:"+(head.deep+1));
 				}
 			}
 		}
 //		System.out.println("size" + q.size());
 	}
-	
+
 	public Boolean judge(int idx,int idy) {
 		if(idx<0||idx>=ROWS||idy<0||idy>=COLS) return false;
-		if(vis[idx][idy] == 1)return false; //ÓÃ¹ıÁË
+		if(vis[idx][idy] == 1)return false; //ç”¨è¿‡äº†
 		vis[idx][idy] = 1;
 		return true;
 	}
-	
+
 }
 public class WaterButton {
 	public static void main(String[] args) throws Exception {
 		/**
-		 *	 ÊµÏÖµÄĞ§¹û
-		 *	µã»÷Ò»¸ö°´Å¥£¬È»ºóÒı·¢Á¬Ëø·´Ó¦±äÑÕÉ«£¬ÀàËÆË®µÄ²¨ÎÆ
+		 *	 å®ç°çš„æ•ˆæœ
+		 *	ç‚¹å‡»ä¸€ä¸ªæŒ‰é’®ï¼Œç„¶åå¼•å‘è¿é”ååº”å˜é¢œè‰²ï¼Œç±»ä¼¼æ°´çš„æ³¢çº¹
 		 */
 		new MyLayout();
 	}
-	
+
 }
