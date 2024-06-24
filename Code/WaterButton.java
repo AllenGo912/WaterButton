@@ -135,7 +135,7 @@ public class WaterButton {
 		 *	 实现的效果
 		 *	点击一个按钮，然后引发连锁反应变颜色，类似水的波纹 采用BFS思想
 		 */
-		// 自己修改
+		// modify
 		new MyLayout();
 	}
 
