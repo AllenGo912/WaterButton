@@ -11,8 +11,8 @@ import java.util.Queue;
 class MyLayout extends Frame implements ActionListener{
 
 	//按钮数组大小
-	private int ROWS = 10;
-	private int COLS = 10;
+	private final int ROWS = 10;
+	private final int COLS = 10;
 
 	class MyButton extends Button{
 		public int x,y;//按钮在数组中的下标
@@ -133,7 +133,7 @@ public class WaterButton {
 	public static void main(String[] args) throws Exception {
 		/**
 		 *	 实现的效果
-		 *	点击一个按钮，然后引发连锁反应变颜色，类似水的波纹
+		 *	点击一个按钮，然后引发连锁反应变颜色，类似水的波纹 采用BFS思想
 		 */
 		new MyLayout();
 	}
